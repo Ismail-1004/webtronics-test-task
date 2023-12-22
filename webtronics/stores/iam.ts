@@ -10,7 +10,7 @@ export const useIAm = defineStore('iam', {
 
     actions: {
         login (data: iAmType):iAmType | boolean {
-            if (this.userData.login === data.login && this.userData.login === data.login) {
+            if (this.userData.login === data.login && this.userData.password === data.password) {
                 return data
             }
 

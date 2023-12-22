@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+    layout: 'auth'
+})
+
 import { useIAm } from '@/stores/iam'
 const { $toast } = useNuxtApp()
 const iamStore = useIAm()
@@ -37,10 +41,12 @@ const loginHandler = ({ login, password }) => {
 <style lang="scss" scoped>
 .login {
   height: 100vh;
+  width: 100%;
 
   &__content {
     display: flex;
     height: 100%;
+    width: 100%;
 
     &-form {
         max-width: 50%;
