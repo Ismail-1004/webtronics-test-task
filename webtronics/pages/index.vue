@@ -6,7 +6,7 @@ let tickets = ref([])
 let loading = ref(true)
 
 const labels = [
-    { title: 'Id', prop: 'id' },
+    { title: 'Id', prop: 'id', sortable: true },
     { title: 'Id Пользователя', prop: 'userId', type: 'link', to: '/profile/', key: 'userId' },
     { title: 'Заголовок', prop: 'title' }
 ]

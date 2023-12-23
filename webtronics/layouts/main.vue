@@ -1,8 +1,6 @@
 <script setup>
 const menu = [
-    { to: '/', title: 'Главная', exact: true },
-    { to: '/profile', title: 'Профиль' },
-    { to: '/tickets', title: 'Список тикетов' }
+    { to: '/', title: 'Главная', exact: true }
 ]
 </script>
 

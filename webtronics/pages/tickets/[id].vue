@@ -1,38 +1,51 @@
 <script setup>
-import { useTickets } from '@/stores/tickets'
+import { useTickets } from "@/stores/tickets";
 
 definePageMeta({
-    layout: 'main'
-})
+  layout: "main",
+});
 
-const ticketsStore = useTickets()
-const route = useRoute()
-const ticket = ref(null)
+const ticketsStore = useTickets();
+const route = useRoute();
+const ticket = ref(null);
+const loading = ref(true);
+
+const labels = [
+    { title: 'Id', key: 'id' },
+    { title: 'Id пользователя', key: 'userId', width: 180 },
+    { title: 'Заголовок', key: 'title' },
+    { title: 'Описание', key: 'body' },
+]
 
 const getTicektHandler = async () => {
-    await ticketsStore.getTicket(route.params.id)
-    ticket.value = {...ticketsStore.ticketGetter}
+  await ticketsStore.getTicket(route.params.id);
+  ticket.value = { ...ticketsStore.ticketGetter };
+  loading.value = false;
+};
 
-    console.log(ticket.value);
-}
-
-getTicektHandler()
-
+getTicektHandler();
 </script>
 
 <template>
-    <div class="ticket">
-    <h1> Ticket #{{ route.params.id }} </h1>
-       <el-descriptions
-        title="Vertical list with border"
-        direction="vertical"
-        :column="4"
-        border
+  <div class="ticket">
+    <h1 class="ticket__title">Билет #{{ route.params.id }}</h1>
+    <el-descriptions
+      direction="vertical"
+      :column="4"
+      border
+      v-loading="loading"
     >
-        <el-descriptions-item label="Id">{{ ticket?.id }}</el-descriptions-item>
-        <el-descriptions-item label="Id пользователя"> {{ ticket?.userId }} </el-descriptions-item>
-        <el-descriptions-item label="Заголовок">{{ ticket?.title }}</el-descriptions-item>
-        <el-descriptions-item label="Описание">{{ ticket?.body }}</el-descriptions-item>
+        <template v-if="ticket">
+            <el-descriptions-item v-for="label in labels" :width="label.width" :key="label.key" :label="label.title">{{ ticket[label.key] }}</el-descriptions-item>
+        </template>
     </el-descriptions>
-    </div>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.ticket {
+    &__title {
+        margin-bottom: 30px;
+    }
+}
+</style>

@@ -46,6 +46,7 @@ const buildLink = (id) => {
         <el-table-column prop="id" :label="label.title"
           v-for="(label, i) of labels" 
           :key="i" 
+          :sortable="label.sortable ? true : false"
         >
           <template #default="{ row }">
             <template v-if="label.type === 'link'">
